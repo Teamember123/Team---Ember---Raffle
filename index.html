@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Ember Raffle - Win a £30 Voucher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #fef3c7 100%);
+        }
+        .gradient-orange {
+            background: linear-gradient(90deg, #f97316 0%, #eab308 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <header class="bg-white shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <svg class="text-orange-500" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+                <h1 class="text-2xl font-bold text-gray-800">Team Ember Raffle</h1>
+            </div>
+            <div class="text-sm text-gray-600">Wings of Hope</div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <div class="gradient-orange rounded-2xl shadow-xl p-8 text-white mb-12">
+            <div class="text-center">
+                <svg class="mx-auto mb-4 text-white" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+                <h2 class="text-4xl font-bold mb-4">Win a £30 Voucher!</h2>
+                <p class="text-xl mb-6">Support underprivileged children • £2 per ticket</p>
+                <a 
+                    href="https://thewingsofhope.org/donations/team-ember/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-50 transition-all transform hover:scale-105 shadow-lg"
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    Donate Now
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-8 mb-12">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <svg class="text-orange-500" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+                </svg>
+                About Team Ember
+            </h3>
+            <p class="text-gray-700 leading-relaxed">
+                Hi there, we are a group of 5 Year 9 boys trying to raise money for underprivileged 
+                children in India and Sierra Leone. Team Ember represents an undying fire and hope. 
+                Our hope is to help as many children as we can through donations.
+            </p>
+        </div>
+
+        <div id="entryForm" class="bg-white rounded-xl shadow-md p-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6">Enter the Raffle</h3>
+            
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
+                <p class="text-sm text-gray-700 mb-2">
+                    <strong>How to enter:</strong> Donate £2 (or multiples of £2 for more tickets), 
+                    screenshot your donation confirmation, and submit it below with your contact details.
+                </p>
+                <p class="text-sm text-gray-700">
+                    <strong>📧 Winners will be notified via email</strong> - make sure to provide a valid email address!
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Your Name
+                    </label>
+                    <input
+                        type="text"
+                        id="nameInput"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        placeholder="Enter your full name"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        Email Address
+                    </label>
+                    <input
+                        type="email"
+                        id="emailInput"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        placeholder="your.email@example.com"
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        Donation Screenshot
+                    </label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-orange-500 transition-colors cursor-pointer" id="uploadArea">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            id="screenshotInput"
+                            class="hidden"
+                        />
+                        <div id="uploadPrompt">
+                            <svg class="mx-auto mb-2 text-gray-400" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p class="text-gray-600">Click to upload your donation screenshot</p>
+                            <p class="text-sm text-gray-400 mt-1">PNG, JPG up to 10MB</p>
+                        </div>
+                        <div id="imagePreview" class="hidden">
+                            <img id="previewImage" class="max-h-64 mx-auto rounded-lg mb-2" alt="Preview"/>
+                            <p class="text-sm text-gray-600">Click to change image</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button
+                    id="submitBtn"
+                    class="w-full gradient-orange text-white py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
+                >
+                    Submit Entry
+                </button>
+            </div>
+        </div>
+
+        <div id="successMessage" class="hidden bg-green-50 border-2 border-green-500 rounded-xl p-8 text-center">
+            <div class="text-green-600 mb-4">
+                <svg class="mx-auto" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Entry Received!</h3>
+            <p class="text-gray-700 mb-4">
+                Thank you for your donation! We'll notify you via email at <strong id="confirmedEmail"></strong> if you're selected as the winner of the £30 voucher.
+            </p>
+            <button
+                id="anotherEntryBtn"
+                class="text-orange-600 hover:text-orange-700 font-medium"
+            >
+                Submit another entry
+            </button>
+        </div>
+
+        <div class="mt-12 text-center text-sm text-gray-600">
+            <p>All proceeds go to Wings of Hope to support children in India and Sierra Leone</p>
+            <p class="mt-2">Team Ember • Year 9 Fundraising Initiative</p>
+        </div>
+    </main>
+
+    <script>
+        let uploadedFile = null;
+
+        document.getElementById('uploadArea').addEventListener('click', () => {
+            document.getElementById('screenshotInput').click();
+        });
+
+        document.getElementById('screenshotInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                uploadedFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('uploadPrompt').classList.add('hidden');
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const name = document.getElementById('nameInput').value;
+            const email = document.getElementById('emailInput').value;
+
+            if (!name || !email || !uploadedFile) {
+                alert('Please complete all fields and upload your donation screenshot');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            document.getElementById('confirmedEmail').textContent = email;
+            document.getElementById('entryForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+
+            console.log('Entry submitted:', { name, email, file: uploadedFile.name });
+        });
+
+        document.getElementById('anotherEntryBtn').addEventListener('click', () => {
+            document.getElementById('nameInput').value = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('screenshotInput').value = '';
+            uploadedFile = null;
+            document.getElementById('uploadPrompt').classList.remove('hidden');
+            document.getElementById('imagePreview').classList.add('hidden');
+
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('entryForm').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
