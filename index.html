@@ -84,46 +84,58 @@
                 </p>
             </div>
 
-            <div class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
-                        Your Name
-                    </label>
-                    <input
-                        type="text"
-                        id="nameInput"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        placeholder="Enter your full name"
-                    />
-                </div>
+            <form name="raffle-entries" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="raffleForm">
+                <input type="hidden" name="form-name" value="raffle-entries">
+                <p style="display:none;">
+                    <label>Don't fill this out if you're human: <input name="bot-field"></label>
+                </p>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Your Name
+                        </label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="nameInput"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                            placeholder="Enter your full name"
+                        />
+                    </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        id="emailInput"
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        placeholder="your.email@example.com"
-                    />
-                </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <svg class="inline mr-2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="emailInput"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                            placeholder="your.email@example.com"
+                        />
+                    </div>
 
-                <button
-                    id="submitBtn"
-                    class="w-full gradient-orange text-white py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
-                >
-                    Submit Entry
-                </button>
-            </div>
+                    <button
+                        type="submit"
+                        id="submitBtn"
+                        class="w-full gradient-orange text-white py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"
+                    >
+                        Submit Entry
+                    </button>
+                </div>
+            </form>
         </div>
 
         <div id="successMessage" class="hidden bg-green-50 border-2 border-green-500 rounded-xl p-8 text-center">
@@ -151,73 +163,44 @@
         </div>
     </main>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyB7v6mkNVHab90HB0q2lCulyv0zBbMC5S4",
-            authDomain: "team-ember-raffle.firebaseapp.com",
-            projectId: "team-ember-raffle",
-            storageBucket: "team-ember-raffle.firebasestorage.app",
-            messagingSenderId: "794956887100",
-            appId: "1:794956887100:web:09ba023afa74c66d57bf39"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        document.getElementById('submitBtn').addEventListener('click', async () => {
-            const name = document.getElementById('nameInput').value.trim();
-            const email = document.getElementById('emailInput').value.trim();
-
-            if (!name || !email) {
-                alert('Please enter your name and email address');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                return;
-            }
-
-            // Disable submit button
+    <script>
+        document.getElementById('raffleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const email = document.getElementById('emailInput').value;
             const submitBtn = document.getElementById('submitBtn');
+            
+            // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
-
-            try {
-                // Save entry to Firestore
-                await addDoc(collection(db, 'raffle_entries'), {
-                    name: name,
-                    email: email,
-                    timestamp: serverTimestamp()
-                });
-
+            
+            // Submit to Netlify
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(new FormData(form)).toString()
+            })
+            .then(() => {
                 // Show success message
                 document.getElementById('confirmedEmail').textContent = email;
                 document.getElementById('entryForm').classList.add('hidden');
                 document.getElementById('successMessage').classList.remove('hidden');
-
-            } catch (error) {
-                console.error('Error submitting entry:', error);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
                 alert('There was an error submitting your entry. Please try again.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Entry';
-            }
+            });
         });
 
         document.getElementById('anotherEntryBtn').addEventListener('click', () => {
             document.getElementById('nameInput').value = '';
             document.getElementById('emailInput').value = '';
-
             document.getElementById('successMessage').classList.add('hidden');
             document.getElementById('entryForm').classList.remove('hidden');
-
+            
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Submit Entry';
