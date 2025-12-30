@@ -69,7 +69,10 @@
             <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
                 <p class="text-sm text-gray-700 mb-2">
                     <strong>How to enter:</strong> Donate £2 (or multiples of £2 for more tickets), 
-                    screenshot your donation confirmation, and submit it below with your contact details.
+                    then submit your details below. Screenshots are optional but helpful for verification.
+                </p>
+                <p class="text-sm text-gray-700 mb-2">
+                    <strong>⚠️ Important:</strong> Make sure the name you enter matches the name on your donation so we can verify your entry.
                 </p>
                 <p class="text-sm text-gray-700">
                     <strong>📧 Winners will be notified via email</strong> - make sure to provide a valid email address!
@@ -116,7 +119,7 @@
                             <polyline points="17 8 12 3 7 8"/>
                             <line x1="12" y1="3" x2="12" y2="15"/>
                         </svg>
-                        Donation Screenshot
+                        Donation Screenshot <span class="text-gray-500">(Optional)</span>
                     </label>
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-orange-500 transition-colors cursor-pointer" id="uploadArea">
                         <input
@@ -175,7 +178,25 @@
         </div>
     </main>
 
-    <script>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7v6mkNVHab90HB0q2lCulyv0zBbMC5S4",
+            authDomain: "team-ember-raffle.firebaseapp.com",
+            projectId: "team-ember-raffle",
+            storageBucket: "team-ember-raffle.firebasestorage.app",
+            messagingSenderId: "794956887100",
+            appId: "1:794956887100:web:09ba023afa74c66d57bf39"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
         let uploadedFile = null;
 
         document.getElementById('uploadArea').addEventListener('click', () => {
@@ -196,12 +217,12 @@
             }
         });
 
-        document.getElementById('submitBtn').addEventListener('click', () => {
-            const name = document.getElementById('nameInput').value;
-            const email = document.getElementById('emailInput').value;
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            const name = document.getElementById('nameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
 
-            if (!name || !email || !uploadedFile) {
-                alert('Please complete all fields and upload your donation screenshot');
+            if (!name || !email) {
+                alert('Please enter your name and email address');
                 return;
             }
 
@@ -211,11 +232,41 @@
                 return;
             }
 
-            document.getElementById('confirmedEmail').textContent = email;
-            document.getElementById('entryForm').classList.add('hidden');
-            document.getElementById('successMessage').classList.remove('hidden');
+            // Disable submit button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
 
-            console.log('Entry submitted:', { name, email, file: uploadedFile.name });
+            try {
+                let screenshotURL = null;
+
+                // Upload screenshot to Firebase Storage if provided
+                if (uploadedFile) {
+                    const timestamp = Date.now();
+                    const storageRef = ref(storage, `screenshots/${timestamp}_${uploadedFile.name}`);
+                    await uploadBytes(storageRef, uploadedFile);
+                    screenshotURL = await getDownloadURL(storageRef);
+                }
+
+                // Save entry to Firestore
+                await addDoc(collection(db, 'raffle_entries'), {
+                    name: name,
+                    email: email,
+                    screenshotURL: screenshotURL,
+                    timestamp: serverTimestamp()
+                });
+
+                // Show success message
+                document.getElementById('confirmedEmail').textContent = email;
+                document.getElementById('entryForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error submitting entry:', error);
+                alert('There was an error submitting your entry. Please try again.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Entry';
+            }
         });
 
         document.getElementById('anotherEntryBtn').addEventListener('click', () => {
@@ -228,6 +279,10 @@
 
             document.getElementById('successMessage').classList.add('hidden');
             document.getElementById('entryForm').classList.remove('hidden');
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Entry';
         });
     </script>
 </body>
